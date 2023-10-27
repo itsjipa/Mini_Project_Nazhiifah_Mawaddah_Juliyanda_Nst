@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gumsmile_dental_care/const/constant.dart';
-import 'package:gumsmile_dental_care/view/screen/message_screen.dart';
+import 'package:gumsmile_dental_care/model/provider/navbar_provider.dart';
 import 'package:gumsmile_dental_care/model/provider/message_provider.dart';
+import 'package:gumsmile_dental_care/view/widgets/navbar_widget.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -19,6 +20,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => MessageProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => NavbarProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -29,9 +33,15 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.white,
             titleSpacing: 1.5,
           ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+              backgroundColor: Constant().colorBar,
+              selectedItemColor: Constant().itemSelect,
+              unselectedItemColor: Colors.black54,
+              ),
           useMaterial3: true,
         ),
-        home: const MessageScreen(),
+        debugShowCheckedModeBanner: false,
+        home: NavigationBarWidget(),
       ),
     );
   }

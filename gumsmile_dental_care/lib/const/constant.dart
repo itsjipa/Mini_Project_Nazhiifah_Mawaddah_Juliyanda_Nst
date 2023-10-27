@@ -43,6 +43,7 @@ class Constant {
 
   Color colorBar = Color.fromRGBO(210, 227, 200, 1);
   Color colorButton = Color.fromRGBO(178, 200, 186, 1);
+  Color itemSelect = Color.fromRGBO(178, 200, 186, 1);
 
   TextStyle textAppBar = GoogleFonts.poppins(
     color: Color.fromRGBO(105, 114, 100, 1),

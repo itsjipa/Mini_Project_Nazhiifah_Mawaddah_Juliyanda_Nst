@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:gumsmile_dental_care/const/constant.dart';
 import 'package:gumsmile_dental_care/model/provider/message_provider.dart';
 import 'package:provider/provider.dart';
@@ -22,22 +23,26 @@ class _MessageScreenState extends State<MessageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Message',
-            style: Constant().textAppBar,
-          ),
+      appBar: AppBar(
+        title: Text(
+          'Message',
+          style: Constant().textAppBar,
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(
-              15.0,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
+      ),
+      body: Consumer<MessageProvider>(
+        builder: (context, dataProvider, _) {
+          final now = DateTime.now();
+          dataProvider.sortDoctorOnlineStatus(now);
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(
+                15.0,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10.0),
                       boxShadow: const <BoxShadow>[
@@ -46,49 +51,44 @@ class _MessageScreenState extends State<MessageScreen> {
                           blurRadius: 10.0,
                           spreadRadius: 2.0,
                         ),
-                      ]),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      SizedBox(
-                        width: 300,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 15.0,
-                          ),
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                              hintText: 'Search',
-                              border: InputBorder.none,
-                            ),
+                      ],
+                    ),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15.0,
+                        ),
+                        child: TextFormField(
+                          onChanged: (query) {
+                            dataProvider.filterDoctors(query);
+                          },
+                          decoration: const InputDecoration(
+                            hintText: 'Search',
+                            border: InputBorder.none,
                           ),
                         ),
                       ),
-                      IconButton(onPressed: () {}, icon: const Icon(Icons.search))
-                    ],
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
+                  const SizedBox(
+                    height: 20.0,
                   ),
-                  child: Text(
-                    'Active Now',
-                    style: Constant().textHeading,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                    ),
+                    child: Text(
+                      'Active Now',
+                      style: Constant().textHeading,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                SizedBox(
-                  height: 90,
-                  child: Consumer<MessageProvider>(
-                      builder: (context, dataProvider, _) {
-                    final now = DateTime.now();
-                    return ListView.builder(
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  SizedBox(
+                    height: 90,
+                    child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
                         itemCount: dataProvider.doctors.length,
@@ -151,57 +151,104 @@ class _MessageScreenState extends State<MessageScreen> {
                               ],
                             ),
                           );
-                        });
-                  }),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
+                        }),
                   ),
-                  child: Text(
-                    'Recent Chat',
-                    style: Constant().textHeading,
+                  const SizedBox(
+                    height: 20.0,
                   ),
-                ),
-            
-                Consumer<MessageProvider>(
-                  builder: (context, dataProvider, child) {
-                    if (dataProvider.doctors.isEmpty) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: dataProvider.doctors.length,
-                          itemBuilder: (context, index) {
-                            final dokters = dataProvider.doctors[index];
-                            final workHours = dokters.workHours;
-                            final workDays = dokters.workDays;
-                            return ListTile(
-                              title: Text(dokters.name),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Work Days: ${workDays.join(', ')}'),
-                                  const Text('Work Hours: '),
-                                  for (var workHour in workHours)
-                                    Text(
-                                        '${workHour.start.format(context)} - ${workHour.end.format(context)}'),
-                                ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                    ),
+                    child: Text(
+                      'Chat',
+                      style: Constant().textHeading,
+                    ),
+                  ),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: dataProvider.doctors.length,
+                      itemBuilder: (context, index) {
+                        final dokters = dataProvider.doctors[index];
+                        final workHours = dokters.workHours;
+                        final workDays = dokters.workDays;
+                        return ListTile(
+                          title: Text(dokters.name),
+                          trailing: SizedBox(
+                            width: 20,
+                            height: 50,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <SizedBox>[
+                                SizedBox(
+                                  width: 10,
+                                  height: 10,
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.call,
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                  height: 10,
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.message_rounded,
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              RichText(
+                                text: TextSpan(
+                                  style: Constant().text,
+                                  children: <TextSpan>[
+                                    const TextSpan(
+                                      text: 'Work Days: ',
+                                    ),
+                                    TextSpan(
+                                      text: workDays.join(', '),
+                                      style: GoogleFonts.inriaSans(
+                                        color: Colors.black87,
+                                        fontSize: 10.0,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            );
-                          });
-                    }
-                  },
-                ),
-              ],
+                              Text(
+                                'Work Hours: ',
+                                style: Constant().text,
+                              ),
+                              for (var workHour in workHours)
+                                Text(
+                                  '${workHour.start.format(context)} - ${workHour.end.format(context)}',
+                                  style: GoogleFonts.inriaSans(
+                                    color: Colors.black87,
+                                    fontSize: 10.0,
+                                  ),
+                                ),
+                            ],
+                          ),
+                        );
+                      }),
+                ],
+              ),
             ),
-          ),
-        ),);
+          );
+        },
+      ),
+    );
   }
 }

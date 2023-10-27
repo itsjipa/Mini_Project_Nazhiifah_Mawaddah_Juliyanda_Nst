@@ -1,10 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gumsmile_dental_care/model/doctor_model.dart';
 import 'package:gumsmile_dental_care/viewmodel/service/database_doctor.dart';
 
 class MessageProvider extends ChangeNotifier {
   List<DoctorModel> doctors = [];
+  List<DoctorModel> filteredDoctors = [];
+  String searchQuery = '';
 
   final DatabaseDoctor _databaseDoctor = DatabaseDoctor();
 
@@ -16,7 +17,6 @@ class MessageProvider extends ChangeNotifier {
 
   Future insertDataIntoLocal(List<Map<String, String>> data) async {
     for (final item in data) {
-
       // mengolah data workDays
       final List<String> workDays =
           item['workDays']!.split(', ').map((e) => e.trim()).toList();
@@ -71,8 +71,8 @@ class MessageProvider extends ChangeNotifier {
     }
 
     for (var hours in workHours) {
-      if (
-          now.hour >= hours.start.hour && now.minute >= hours.start.minute && 
+      if (now.hour >= hours.start.hour &&
+          now.minute >= hours.start.minute &&
           now.hour < hours.end.hour) {
         return true;
       }
@@ -100,5 +100,29 @@ class MessageProvider extends ChangeNotifier {
       default:
         return '';
     }
+  }
+
+  void sortDoctorOnlineStatus(DateTime now) {
+    doctors.sort((x, y) {
+      final isOnlineX = isDoctorOnline(x, now);
+      final isOnlineY = isDoctorOnline(y, now);
+
+      if (isOnlineX && !isOnlineY) {
+        return -1;
+      } else if (!isOnlineX && isOnlineY) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    notifyListeners();
+  }
+
+  List<DoctorModel> filterDoctors(String query) {
+    searchQuery = query;
+    return doctors
+        .where((element) =>
+            element.name.toLowerCase().contains(query.toLowerCase()))
+        .toList();
   }
 }

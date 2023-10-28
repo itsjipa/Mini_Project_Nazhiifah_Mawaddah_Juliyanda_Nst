@@ -12,7 +12,7 @@ class MessageProvider extends ChangeNotifier {
   Future addDoctor(DoctorModel doctorModel) async {
     doctors.add(doctorModel);
     notifyListeners();
-    await _databaseDoctor.insertDoctor(doctorModel);
+    _databaseDoctor.insertDoctor(doctorModel);
   }
 
   Future insertDataIntoLocal(List<Map<String, String>> data) async {
@@ -76,7 +76,6 @@ class MessageProvider extends ChangeNotifier {
           now.hour < hours.end.hour) {
         return true;
       }
-      notifyListeners();
     }
     return false;
   }
@@ -115,7 +114,6 @@ class MessageProvider extends ChangeNotifier {
         return 0;
       }
     });
-    notifyListeners();
   }
 
   List<DoctorModel> filterDoctors(String query) {

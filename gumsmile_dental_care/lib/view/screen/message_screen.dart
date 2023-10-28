@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gumsmile_dental_care/const/constant.dart';
 import 'package:gumsmile_dental_care/model/provider/message_provider.dart';
+import 'package:gumsmile_dental_care/model/provider/method_provider.dart';
 import 'package:provider/provider.dart';
 
 class MessageScreen extends StatefulWidget {
@@ -14,21 +15,18 @@ class MessageScreen extends StatefulWidget {
 class _MessageScreenState extends State<MessageScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.microtask(() =>
         context.read<MessageProvider>().insertDataIntoLocal(Constant().data));
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   final prov = context.read<MessageProvider>();
+    //   prov.insertDataIntoLocal(Constant().data);
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Message',
-          style: Constant().textAppBar,
-        ),
-      ),
       body: Consumer<MessageProvider>(
         builder: (context, dataProvider, _) {
           final now = DateTime.now();
@@ -41,6 +39,23 @@ class _MessageScreenState extends State<MessageScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      "Messages",
+                      style: GoogleFonts.roboto(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  TextButton(onPressed: () => Methods().logOut(context), child: Text('data')),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -82,9 +97,6 @@ class _MessageScreenState extends State<MessageScreen> {
                       'Active Now',
                       style: Constant().textHeading,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10.0,
                   ),
                   SizedBox(
                     height: 90,
@@ -175,38 +187,6 @@ class _MessageScreenState extends State<MessageScreen> {
                         final workDays = dokters.workDays;
                         return ListTile(
                           title: Text(dokters.name),
-                          trailing: SizedBox(
-                            width: 20,
-                            height: 50,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <SizedBox>[
-                                SizedBox(
-                                  width: 10,
-                                  height: 10,
-                                  child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      Icons.call,
-                                      size: 18,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                  height: 10,
-                                  child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      Icons.message_rounded,
-                                      size: 18,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -240,6 +220,37 @@ class _MessageScreenState extends State<MessageScreen> {
                                   ),
                                 ),
                             ],
+                          ),
+                          trailing: SizedBox(
+                            width: 20,
+                            // height: 40,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <SizedBox>[
+                                SizedBox(
+                                  width: 10,
+                                  height: 10,
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.call,
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                  height: 10,
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.message_rounded,
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       }),

@@ -33,7 +33,7 @@ SET workHours = strftime('%H:%M', workHours_start) || ' - ' || strftime('%H:%M',
     } catch (e) {
       debugPrint('Error : $e');
     }
-    await _database.insert(
+    _database.insert(
       tableName,
       doctorModel.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,

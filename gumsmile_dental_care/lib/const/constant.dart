@@ -41,12 +41,12 @@ class Constant {
     },
   ];
 
-  Color colorBar = Color.fromRGBO(210, 227, 200, 1);
-  Color colorButton = Color.fromRGBO(178, 200, 186, 1);
-  Color itemSelect = Color.fromRGBO(178, 200, 186, 1);
+  Color colorBar = const Color.fromRGBO(210, 227, 200, 1);
+  Color colorButton = const Color.fromRGBO(178, 200, 186, 1);
+  Color itemSelect = const Color.fromRGBO(178, 200, 186, 1);
 
   TextStyle textAppBar = GoogleFonts.poppins(
-    color: Color.fromRGBO(105, 114, 100, 1),
+    color: const Color.fromRGBO(105, 114, 100, 1),
     fontWeight: FontWeight.w700,
     letterSpacing: 2.5,
   );
@@ -55,8 +55,13 @@ class Constant {
     fontSize: 12.0,
   );
   TextStyle textHeading = GoogleFonts.rubik(
-    color: Color.fromRGBO(115, 120, 100, 1),
+    color: const Color.fromRGBO(115, 120, 100, 1),
     fontWeight: FontWeight.bold,
     fontSize: 20.0,
+  );
+  TextStyle textButton = GoogleFonts.lexendDeca(
+    fontWeight: FontWeight.bold,
+    fontSize: 18.0,
+    color: Colors.black,
   );
 }

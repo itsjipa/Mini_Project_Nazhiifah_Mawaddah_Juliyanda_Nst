@@ -1,11 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gumsmile_dental_care/const/constant.dart';
+import 'package:gumsmile_dental_care/model/provider/login_provider.dart';
 import 'package:gumsmile_dental_care/model/provider/navbar_provider.dart';
 import 'package:gumsmile_dental_care/model/provider/message_provider.dart';
-import 'package:gumsmile_dental_care/view/widgets/navbar_widget.dart';
+import 'package:gumsmile_dental_care/model/provider/register_provider.dart';
+import 'package:gumsmile_dental_care/view/widgets/auth.dart';
 import 'package:provider/provider.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -23,6 +29,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => NavbarProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => RegisterProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => LoginProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -34,14 +46,22 @@ class MyApp extends StatelessWidget {
             titleSpacing: 1.5,
           ),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
-              backgroundColor: Constant().colorBar,
-              selectedItemColor: Constant().itemSelect,
-              unselectedItemColor: Colors.black54,
+            backgroundColor: Constant().colorBar,
+            selectedItemColor: Constant().itemSelect,
+            unselectedItemColor: Colors.black54,
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0,),
               ),
+              backgroundColor: Constant().colorButton,
+            )
+          ),
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
-        home: NavigationBarWidget(),
+        home: AuthLogin(),
       ),
     );
   }

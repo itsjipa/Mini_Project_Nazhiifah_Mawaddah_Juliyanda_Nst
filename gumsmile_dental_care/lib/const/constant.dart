@@ -39,25 +39,43 @@ class Constant {
       "workDays": "Wednesday, Friday",
       "picture": "assets/dokter/doctorimg6.jpeg",
     },
+    {
+      "name": "Drg. Maria Sylvie",
+      "workHours": "19:45pm - 21:00pm",
+      "workDays": "Wednesday, Thursday, Friday",
+      "picture": "assets/dokter/doctorimg7.jpeg",
+    },
+    {
+      "name": "Drg. Lucas Leonidas",
+      "workHours": "19:40pm - 21:00pm",
+      "workDays": "Wednesday, Thursday, Friday",
+      "picture": "assets/dokter/doctorimg8.jpeg",
+    },
   ];
-
   Color colorBar = const Color.fromRGBO(210, 227, 200, 1);
   Color colorButton = const Color.fromRGBO(178, 200, 186, 1);
   Color itemSelect = const Color.fromRGBO(178, 200, 186, 1);
+  Color colorPage = const Color.fromRGBO(235, 243, 232, 1);
+  Color colorIcon = const Color.fromRGBO(134, 167, 137, 1);
 
   TextStyle textAppBar = GoogleFonts.poppins(
-    color: const Color.fromRGBO(105, 114, 100, 1),
-    fontWeight: FontWeight.w700,
-    letterSpacing: 2.5,
+    fontSize: 14.0,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 1.5,
   );
   TextStyle text = GoogleFonts.inriaSans(
     color: Colors.black,
     fontSize: 12.0,
   );
+  TextStyle textFeature = GoogleFonts.quicksand(
+    color: Colors.black,
+    fontWeight: FontWeight.w600,
+    fontSize: 12.0,
+  );
   TextStyle textHeading = GoogleFonts.rubik(
     color: const Color.fromRGBO(115, 120, 100, 1),
     fontWeight: FontWeight.bold,
-    fontSize: 20.0,
+    fontSize: 22.0,
   );
   TextStyle textButton = GoogleFonts.lexendDeca(
     fontWeight: FontWeight.bold,

@@ -1,10 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gumsmile_dental_care/const/constant.dart';
-import 'package:gumsmile_dental_care/model/provider/login_provider.dart';
-import 'package:gumsmile_dental_care/model/provider/navbar_provider.dart';
-import 'package:gumsmile_dental_care/model/provider/message_provider.dart';
-import 'package:gumsmile_dental_care/model/provider/register_provider.dart';
+import 'package:gumsmile_dental_care/viewmodel/provider/book_apointment_provider.dart';
+import 'package:gumsmile_dental_care/viewmodel/provider/home_provider.dart';
+import 'package:gumsmile_dental_care/viewmodel/provider/listappointment_provider.dart';
+import 'package:gumsmile_dental_care/viewmodel/provider/login_provider.dart';
+import 'package:gumsmile_dental_care/viewmodel/provider/navbar_provider.dart';
+import 'package:gumsmile_dental_care/viewmodel/provider/doctor_provider.dart';
+import 'package:gumsmile_dental_care/viewmodel/provider/openai_provider.dart';
+import 'package:gumsmile_dental_care/viewmodel/provider/past_provider.dart';
+import 'package:gumsmile_dental_care/viewmodel/provider/register_provider.dart';
 import 'package:gumsmile_dental_care/view/widgets/auth.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
@@ -24,7 +29,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => MessageProvider(),
+          create: (_) => DoctorProvider(),
         ),
         ChangeNotifierProvider(
           create: (_) => NavbarProvider(),
@@ -34,6 +39,21 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => LoginProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => HomeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => OpenAIProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => BookAppointmentProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ListAppointmentsProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => PastProvider(),
         ),
       ],
       child: MaterialApp(
@@ -53,10 +73,36 @@ class MyApp extends StatelessWidget {
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0,),
+                borderRadius: BorderRadius.circular(
+                  20.0,
+                ),
               ),
               backgroundColor: Constant().colorButton,
-            )
+            ),
+          ),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: Constant().colorButton,
+            elevation: 5.0,
+            highlightElevation: 20.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                30.0,
+              ),
+            ),
+            foregroundColor: Colors.black,
+          ),
+          cardTheme: CardTheme(
+            color: Constant().colorButton.withOpacity(
+                  0.5,
+                ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                4.0,
+              ),
+            ),
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            shadowColor: Colors.black12,
+            elevation: 3.0,
           ),
           useMaterial3: true,
         ),

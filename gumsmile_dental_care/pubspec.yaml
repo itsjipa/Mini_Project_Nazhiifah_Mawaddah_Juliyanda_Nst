@@ -47,7 +47,9 @@ dependencies:
   envied: ^0.3.0+3
   sqflite: ^2.3.0
   path: ^1.8.3
-  
+  carousel_slider: ^4.2.1
+  table_calendar: ^3.0.9
+  rflutter_alert: ^2.0.7
 
 dev_dependencies:
   flutter_test:
@@ -77,8 +79,8 @@ flutter:
   assets:
     - assets/
     - assets/dokter/
-    # - assets/feature
-    # - assets/slider
+    - assets/feature/
+    - assets/slider/
     # - assets/type_of_book_appointment
   #   - images/a_dot_ham.jpeg
 

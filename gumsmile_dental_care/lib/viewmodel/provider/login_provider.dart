@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gumsmile_dental_care/model/provider/method_provider.dart';
+import 'package:gumsmile_dental_care/viewmodel/provider/method_provider.dart';
 
 class LoginProvider extends ChangeNotifier {
   final _formKey = GlobalKey<FormState>();
@@ -10,7 +10,7 @@ class LoginProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
-  get formKey => _formKey;
+  GlobalKey<FormState> get formKey => _formKey;
 
   Future<bool> checkLogin(String email, String password) async {
     if (email.isNotEmpty && password.isNotEmpty) {
@@ -38,6 +38,12 @@ class LoginProvider extends ChangeNotifier {
       return "Please input your password";
     } else if (value.length < 8) {
       return "Enter min. 8 characters";
+    } else if (!value.contains(RegExp(r'[A-Z]'))) {
+      return "Must have one uppercase letter";
+    } else if (!value.contains(RegExp(r'[a-z]'))) {
+      return "Must have one lowercase letter";
+    } else if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return "Must have one special character";
     }
     return null;
   }
@@ -45,7 +51,12 @@ class LoginProvider extends ChangeNotifier {
   String? validatorEmail(String? value) {
     if (value == null || value.isEmpty) {
       return "Please enter your email address";
-    } else if (!value.contains("@") || !value.contains(".")) {
+    } else if (!RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
+        .hasMatch(value)) {
+      return "Please enter a valid email address";
+    } else if (!RegExp(
+            r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+        .hasMatch(value)) {
       return "Please enter a valid email address";
     }
     return null;

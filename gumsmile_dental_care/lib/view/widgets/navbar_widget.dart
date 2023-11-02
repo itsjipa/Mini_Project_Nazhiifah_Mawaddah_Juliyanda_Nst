@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gumsmile_dental_care/model/provider/navbar_provider.dart';
+import 'package:gumsmile_dental_care/viewmodel/provider/navbar_provider.dart';
+import 'package:gumsmile_dental_care/view/screen/openai_screen.dart';
 import 'package:provider/provider.dart';
 
 class NavigationBarWidget extends StatelessWidget {
@@ -10,6 +11,19 @@ class NavigationBarWidget extends StatelessWidget {
     return Consumer<NavbarProvider>(builder: (context, navbarProvider, _) {
       return Scaffold(
         body: navbarProvider.screen[navbarProvider.selectedIndex],
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const AiScreen(),
+              ),
+            );
+          },
+          child: const Icon(
+            Icons.adb,
+          ),
+        ),
         bottomNavigationBar: SizedBox(
           height: 70,
           child: BottomNavigationBar(
@@ -20,10 +34,23 @@ class NavigationBarWidget extends StatelessWidget {
             },
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.chat_rounded,), label: 'Messages',),
-            BottomNavigationBarItem(icon: Icon(Icons.home,), label: 'Home',),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle,), label: 'Profile',),
+                icon: Icon(
+                  Icons.chat_rounded,
+                ),
+                label: 'Messages',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                ),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.account_circle,
+                ),
+                label: 'Profile',
+              ),
             ],
           ),
         ),

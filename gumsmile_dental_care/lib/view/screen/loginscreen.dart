@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gumsmile_dental_care/const/constant.dart';
-import 'package:gumsmile_dental_care/model/provider/login_provider.dart';
+import 'package:gumsmile_dental_care/viewmodel/provider/login_provider.dart';
 import 'package:gumsmile_dental_care/view/screen/registerscreen.dart';
 import 'package:gumsmile_dental_care/view/widgets/navbar_widget.dart';
 import 'package:provider/provider.dart';
@@ -148,42 +148,46 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 30.0),
+                          vertical: 10.0,
+                          horizontal: 30.0,
+                        ),
                         width: double.infinity,
                         height: 60.0,
                         child: Consumer<LoginProvider>(
                           builder: (context, regProv, child) {
                             return ElevatedButton(
                               onPressed: () {
-                                regProv
-                                    .checkLogin(regProv.emailController.text,
-                                        regProv.passwordController.text)
-                                    .then((value) {
-                                  if (value) {
-                                    var snackBar = const SnackBar(
-                                      content: Text(
-                                        'Success to Login',
-                                      ),
-                                    );
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const NavigationBarWidget(),
-                                      ),
-                                    );
-                                  } else {
-                                    var snackBar = const SnackBar(
-                                      content: Text(
-                                        'Failed to Login',
-                                      ),
-                                    );
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
-                                  }
-                                });
+                                if (regProv.formKey.currentState!.validate()) {
+                                  regProv
+                                      .checkLogin(regProv.emailController.text,
+                                          regProv.passwordController.text)
+                                      .then((value) {
+                                    if (value) {
+                                      var snackBar = const SnackBar(
+                                        content: Text(
+                                          'Success to Login',
+                                        ),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const NavigationBarWidget(),
+                                        ),
+                                      );
+                                    } else {
+                                      var snackBar = const SnackBar(
+                                        content: Text(
+                                          'Failed to Login',
+                                        ),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    }
+                                  });
+                                }
                               },
                               child: Text(
                                 'Login',

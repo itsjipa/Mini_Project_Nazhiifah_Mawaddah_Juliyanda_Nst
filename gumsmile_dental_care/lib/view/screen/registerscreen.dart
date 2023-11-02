@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gumsmile_dental_care/const/constant.dart';
-import 'package:gumsmile_dental_care/model/provider/register_provider.dart';
+import 'package:gumsmile_dental_care/viewmodel/provider/register_provider.dart';
 import 'package:gumsmile_dental_care/view/screen/loginscreen.dart';
 import 'package:gumsmile_dental_care/view/widgets/navbar_widget.dart';
 import 'package:provider/provider.dart';
@@ -267,29 +267,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           builder: (context, regProvider, child) {
                             return ElevatedButton(
                               onPressed: () async {
-                                if (regProvider
-                                        .nameController.text.isNotEmpty &&
-                                    regProvider
-                                        .emailController.text.isNotEmpty &&
-                                    regProvider
-                                        .passwordController.text.isNotEmpty) {
-                                  User? user = await regProvider.checkRegister(
-                                    regProvider.nameController.text,
-                                    regProvider.emailController.text,
-                                    regProvider.passwordController.text,
-                                  );
-                                  if (user != null) {
-                                    debugPrint('Login sucess');
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) =>
-                                            const NavigationBarWidget(),
-                                      ),
+                                if (regProvider.formKey.currentState!
+                                    .validate()) {
+                                  if (regProvider
+                                          .nameController.text.isNotEmpty &&
+                                      regProvider
+                                          .emailController.text.isNotEmpty &&
+                                      regProvider
+                                          .passwordController.text.isNotEmpty) {
+                                    User? user =
+                                        await regProvider.checkRegister(
+                                      regProvider.nameController.text,
+                                      regProvider.emailController.text,
+                                      regProvider.passwordController.text,
                                     );
+                                    if (user != null) {
+                                      debugPrint('Login sucess');
+                                      // ignore: use_build_context_synchronously
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) =>
+                                              const NavigationBarWidget(),
+                                        ),
+                                      );
+                                    }
+                                  } else {
+                                    debugPrint('please enter');
                                   }
-                                } else {
-                                  debugPrint('please enter');
                                 }
                               },
                               child: Text(

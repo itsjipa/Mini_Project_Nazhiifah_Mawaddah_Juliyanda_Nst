@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gumsmile_dental_care/const/constant.dart';
-import 'package:gumsmile_dental_care/model/provider/message_provider.dart';
-import 'package:gumsmile_dental_care/model/provider/method_provider.dart';
+import 'package:gumsmile_dental_care/viewmodel/provider/doctor_provider.dart';
 import 'package:provider/provider.dart';
 
 class MessageScreen extends StatefulWidget {
@@ -17,17 +16,13 @@ class _MessageScreenState extends State<MessageScreen> {
   void initState() {
     super.initState();
     Future.microtask(() =>
-        context.read<MessageProvider>().insertDataIntoLocal(Constant().data));
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   final prov = context.read<MessageProvider>();
-    //   prov.insertDataIntoLocal(Constant().data);
-    // });
+        context.read<DoctorProvider>().insertDataIntoLocal(Constant().data));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<MessageProvider>(
+      body: Consumer<DoctorProvider>(
         builder: (context, dataProvider, _) {
           final now = DateTime.now();
           dataProvider.sortDoctorOnlineStatus(now);
@@ -39,27 +34,30 @@ class _MessageScreenState extends State<MessageScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  SizedBox(
-                    height: 40,
+                  const SizedBox(
+                    height: 40.0,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                    ),
                     child: Text(
                       "Messages",
                       style: GoogleFonts.roboto(
-                        fontSize: 28,
+                        fontSize: 28.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 30,
+                  const SizedBox(
+                    height: 30.0,
                   ),
-                  TextButton(onPressed: () => Methods().logOut(context), child: Text('data')),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(
+                        10.0,
+                      ),
                       boxShadow: const <BoxShadow>[
                         BoxShadow(
                           color: Colors.black12,
@@ -92,6 +90,7 @@ class _MessageScreenState extends State<MessageScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20.0,
+                      vertical: 10.0,
                     ),
                     child: Text(
                       'Active Now',
@@ -99,7 +98,7 @@ class _MessageScreenState extends State<MessageScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 90,
+                    height: 90.0,
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
@@ -112,8 +111,8 @@ class _MessageScreenState extends State<MessageScreen> {
                             margin: const EdgeInsets.symmetric(
                               horizontal: 12.0,
                             ),
-                            width: 65,
-                            height: 65,
+                            width: 65.0,
+                            height: 65.0,
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               color: Colors.white,
@@ -130,8 +129,8 @@ class _MessageScreenState extends State<MessageScreen> {
                               children: <Widget>[
                                 Center(
                                   child: SizedBox(
-                                    height: 65,
-                                    width: 65,
+                                    height: 65.0,
+                                    width: 65.0,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(
                                         30.0,
@@ -144,10 +143,14 @@ class _MessageScreenState extends State<MessageScreen> {
                                   ),
                                 ),
                                 Container(
-                                  margin: const EdgeInsets.all(5.0),
-                                  padding: const EdgeInsets.all(3.0),
-                                  height: 20,
-                                  width: 20,
+                                  margin: const EdgeInsets.all(
+                                    5.0,
+                                  ),
+                                  padding: const EdgeInsets.all(
+                                    3.0,
+                                  ),
+                                  height: 20.0,
+                                  width: 20.0,
                                   decoration: const BoxDecoration(
                                     color: Colors.white,
                                     shape: BoxShape.circle,
@@ -169,8 +172,8 @@ class _MessageScreenState extends State<MessageScreen> {
                     height: 20.0,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0,
+                    padding: const EdgeInsets.only(
+                      left: 20.0,
                     ),
                     child: Text(
                       'Chat',
@@ -178,15 +181,19 @@ class _MessageScreenState extends State<MessageScreen> {
                     ),
                   ),
                   ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: dataProvider.doctors.length,
-                      itemBuilder: (context, index) {
-                        final dokters = dataProvider.doctors[index];
-                        final workHours = dokters.workHours;
-                        final workDays = dokters.workDays;
-                        return ListTile(
-                          title: Text(dokters.name),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: dataProvider.doctors.length,
+                    itemBuilder: (context, index) {
+                      final dokters = dataProvider.doctors[index];
+                      final workHours = dokters.workHours;
+                      final workDays = dokters.workDays;
+                      return Card(
+                        child: ListTile(
+                          title: Text(
+                            dokters.name,
+                            style: Constant().textAppBar,
+                          ),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -222,38 +229,39 @@ class _MessageScreenState extends State<MessageScreen> {
                             ],
                           ),
                           trailing: SizedBox(
-                            width: 20,
-                            // height: 40,
+                            width: 20.0,
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <SizedBox>[
                                 SizedBox(
-                                  width: 10,
-                                  height: 10,
+                                  width: 10.0,
+                                  height: 10.0,
                                   child: IconButton(
                                     onPressed: () {},
                                     icon: const Icon(
                                       Icons.call,
-                                      size: 18,
+                                      size: 18.0,
                                     ),
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 10,
-                                  height: 10,
+                                  width: 10.0,
+                                  height: 10.0,
                                   child: IconButton(
                                     onPressed: () {},
                                     icon: const Icon(
                                       Icons.message_rounded,
-                                      size: 18,
+                                      size: 18.0,
                                     ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                        );
-                      }),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),

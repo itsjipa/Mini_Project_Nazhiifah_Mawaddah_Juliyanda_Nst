@@ -35,14 +35,16 @@ class DoctorModel {
     return DoctorModel(
       id: map['id'],
       name: map['name'],
-      workHours: List<WorkHours>.from(
-        map['workHours'].map(
+      workHours:
+      // List<WorkHours>.from(
+        (map['workHours'] is List) ? (map['workHours'] as List).map(
           (x) => WorkHours.fromMap(x),
-        ),
-      ).toList(),
-      workDays: List<String>.from(
-        map['workDays'],
-      ),
+        // ),
+      ).toList() : [],
+      workDays: (map['workDays'] is String) ? (map['workDays'] as String).split(', ').map((e) => e.trim()).toList() : (map['workDays'] as List).cast<String>(),
+      // List<String>.from(
+      //   map['workDays'],
+      // ),
       picture: map['picture'],
     );
   }

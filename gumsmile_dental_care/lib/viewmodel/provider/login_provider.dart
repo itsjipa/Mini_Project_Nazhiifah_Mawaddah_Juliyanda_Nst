@@ -54,10 +54,6 @@ class LoginProvider extends ChangeNotifier {
     } else if (!RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
         .hasMatch(value)) {
       return "Please enter a valid email address";
-    } else if (!RegExp(
-            r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-        .hasMatch(value)) {
-      return "Please enter a valid email address";
     }
     return null;
   }

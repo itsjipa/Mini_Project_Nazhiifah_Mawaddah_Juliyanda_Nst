@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gumsmile_dental_care/const/constant.dart';
+import 'package:gumsmile_dental_care/service/firebase_service.dart';
 import 'package:gumsmile_dental_care/viewmodel/provider/home_provider.dart';
 import 'package:gumsmile_dental_care/view/widgets/profile_item.dart';
 import 'package:provider/provider.dart';
@@ -123,9 +124,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Profilesetting(
                   title: 'Log Out',
                   icon: Icons.logout_outlined,
-                  onTap: () {
-                    Navigator.popAndPushNamed(context, '/logout');
-                  },
+                  onTap: () => FirebaseService().logOut(context),
                   textColor: Colors.red.shade800,
                   endIcon: false,
                 )

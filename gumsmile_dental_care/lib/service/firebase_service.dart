@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gumsmile_dental_care/view/screen/login_screen.dart';
 
 class FirebaseService {
   Future<User?> createAccount(
@@ -67,7 +68,7 @@ class FirebaseService {
 
     try {
       await firebaseAuth.signOut().then((value) {
-        Navigator.pop(context);
+        Navigator.push(context, MaterialPageRoute(builder: (_) => const ScreenLogin()));
       });
     } catch (e) {
       return null;

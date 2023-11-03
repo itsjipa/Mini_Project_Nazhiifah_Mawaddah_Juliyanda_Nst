@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gumsmile_dental_care/viewmodel/provider/method_provider.dart';
+import 'package:gumsmile_dental_care/service/firebase_service.dart';
 
 class HomeProvider extends ChangeNotifier {
   TextEditingController editingController = TextEditingController();
@@ -12,7 +12,7 @@ class HomeProvider extends ChangeNotifier {
   String? username;
 
   void setName(String uid) {
-    Methods().getUsername(uid).then((value) {
+    FirebaseService().getUsername(uid).then((value) {
       username = value;
       notifyListeners();
     });

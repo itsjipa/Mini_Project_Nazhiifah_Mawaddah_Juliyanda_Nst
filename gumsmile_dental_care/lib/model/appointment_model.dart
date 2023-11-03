@@ -1,4 +1,4 @@
-class Appointment {
+class AppointmentModel {
   final int? id;
   final String doctorName;
   final String picture;
@@ -6,7 +6,7 @@ class Appointment {
   final String date;
   final String time;
 
-  Appointment({
+  AppointmentModel({
     this.id,
     required this.doctorName,
     required this.picture,
@@ -26,8 +26,8 @@ class Appointment {
     };
   }
 
-  factory Appointment.fromMap(Map<String, dynamic> map) {
-    return Appointment(
+  factory AppointmentModel.fromMap(Map<String, dynamic> map) {
+    return AppointmentModel(
       id: map['id'],
       doctorName: map['doctorName'],
       picture: map['picture'],

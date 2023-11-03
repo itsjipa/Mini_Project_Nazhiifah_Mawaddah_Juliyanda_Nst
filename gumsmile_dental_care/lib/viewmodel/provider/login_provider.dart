@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gumsmile_dental_care/viewmodel/provider/method_provider.dart';
+import 'package:gumsmile_dental_care/service/firebase_service.dart';
 
 class LoginProvider extends ChangeNotifier {
   final _formKey = GlobalKey<FormState>();
@@ -18,7 +18,7 @@ class LoginProvider extends ChangeNotifier {
       notifyListeners();
 
       try {
-        final user = await Methods().logIn(email, password);
+        final user = await FirebaseService().logIn(email, password);
         _isLoading = false;
         notifyListeners();
 

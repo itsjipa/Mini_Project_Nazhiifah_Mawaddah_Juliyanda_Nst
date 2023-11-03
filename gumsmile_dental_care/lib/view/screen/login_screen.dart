@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gumsmile_dental_care/const/constant.dart';
 import 'package:gumsmile_dental_care/viewmodel/provider/login_provider.dart';
-import 'package:gumsmile_dental_care/view/screen/registerscreen.dart';
+import 'package:gumsmile_dental_care/view/screen/register_screen.dart';
 import 'package:gumsmile_dental_care/view/widgets/navbar_widget.dart';
 import 'package:provider/provider.dart';
 

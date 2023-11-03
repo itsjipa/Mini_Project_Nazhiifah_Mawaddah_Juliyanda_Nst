@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gumsmile_dental_care/const/constant.dart';
-import 'package:gumsmile_dental_care/service/database_apointment.dart';
+import 'package:gumsmile_dental_care/service/appointment_service.dart';
 import 'package:gumsmile_dental_care/viewmodel/provider/listappointment_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -181,7 +181,7 @@ class FutureScreen extends StatelessWidget {
                                           actions: [
                                             TextButton(
                                               onPressed: ()  {
-                                                 DatabaseAppointment()
+                                                 AppointmentService()
                                                     .deleteAppointmentByDoctorName(
                                                         appointment.doctorName);
                                                 

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gumsmile_dental_care/const/constant.dart';
 import 'package:gumsmile_dental_care/viewmodel/provider/register_provider.dart';
-import 'package:gumsmile_dental_care/view/screen/loginscreen.dart';
+import 'package:gumsmile_dental_care/view/screen/login_screen.dart';
 import 'package:gumsmile_dental_care/view/widgets/navbar_widget.dart';
 import 'package:provider/provider.dart';
 

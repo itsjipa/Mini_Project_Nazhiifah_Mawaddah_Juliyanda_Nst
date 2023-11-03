@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gumsmile_dental_care/const/constant.dart';
 import 'package:gumsmile_dental_care/viewmodel/provider/doctor_provider.dart';
-import 'package:gumsmile_dental_care/view/screen/bookappoint/bookappointmentstep2screen.dart';
+import 'package:gumsmile_dental_care/view/screen/bookappoint/book_appointment_step2_screen.dart';
 import 'package:provider/provider.dart';
 
 class Step1Screen extends StatefulWidget {

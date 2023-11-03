@@ -5,7 +5,7 @@ import 'package:gumsmile_dental_care/model/appointment_model.dart';
 import 'package:gumsmile_dental_care/model/doctor_model.dart';
 import 'package:gumsmile_dental_care/viewmodel/provider/book_apointment_provider.dart';
 import 'package:gumsmile_dental_care/model/treatment_model.dart';
-import 'package:gumsmile_dental_care/service/database_apointment.dart';
+import 'package:gumsmile_dental_care/service/appointment_service.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -25,7 +25,7 @@ class Step2Screen extends StatelessWidget {
       ),
       body: Consumer<BookAppointmentProvider>(
         builder: (context, bookProv, _) {
-          DatabaseAppointment databaseAppointment = DatabaseAppointment();
+          AppointmentService appointmentService = AppointmentService();
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(
@@ -242,7 +242,7 @@ class Step2Screen extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () async {
                         try {
-                          final Appointment appointment = Appointment(
+                          final AppointmentModel appointment = AppointmentModel(
                             doctorName: doctor.name,
                             treatmentType:
                                 bookProv.selectedTreatment!.name.toString(),
@@ -250,7 +250,7 @@ class Step2Screen extends StatelessWidget {
                             time: bookProv.selectedTime.format(context),
                             picture: doctor.picture,
                           );
-                          await databaseAppointment
+                          await appointmentService
                               .insertAppointment(appointment);
 
                           // ignore: use_build_context_synchronously

@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:gumsmile_dental_care/const/constant.dart';
 import 'package:gumsmile_dental_care/viewmodel/provider/home_provider.dart';
-import 'package:gumsmile_dental_care/view/screen/bookappoint/bookappointmentstep1screen.dart';
-import 'package:gumsmile_dental_care/view/screen/listappointmentscreen.dart';
+import 'package:gumsmile_dental_care/view/screen/bookappoint/book_appointment_step1_screen.dart';
+import 'package:gumsmile_dental_care/view/screen/list_appointment_screen.dart';
 import 'package:gumsmile_dental_care/view/widgets/build_image.dart';
 import 'package:provider/provider.dart';
 

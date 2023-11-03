@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gumsmile_dental_care/viewmodel/provider/method_provider.dart';
+import 'package:gumsmile_dental_care/service/firebase_service.dart';
 
 class RegisterProvider extends ChangeNotifier {
   final _formKey = GlobalKey<FormState>();
@@ -22,7 +22,7 @@ class RegisterProvider extends ChangeNotifier {
       isLoading = true;
       notifyListeners();
 
-      User? user = await Methods().createAccount(name, email, password);
+      User? user = await FirebaseService().createAccount(name, email, password);
 
       if (user != null) {
         debugPrint("Account created succesful");

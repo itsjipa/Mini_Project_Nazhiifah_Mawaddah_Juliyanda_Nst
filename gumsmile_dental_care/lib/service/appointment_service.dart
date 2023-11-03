@@ -3,7 +3,7 @@ import 'package:gumsmile_dental_care/model/appointment_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DatabaseAppointment {
+class AppointmentService {
   late Database _database;
 
   final String tableName = 'appointment';
@@ -29,7 +29,7 @@ class DatabaseAppointment {
     return database;
   }
 
-  Future<void> insertAppointment(Appointment appointment) async {
+  Future<void> insertAppointment(AppointmentModel appointment) async {
     try {
       await initializeDatabase();
     } catch (e) {
@@ -46,7 +46,7 @@ class DatabaseAppointment {
     );
   }
 
-  Future<List<Appointment>> getAppointment() async {
+  Future<List<AppointmentModel>> getAppointment() async {
     try {
       await initializeDatabase();
     } catch (e) {
@@ -54,12 +54,12 @@ class DatabaseAppointment {
     }
     final List<Map<String, dynamic>> maps = await _database.query(tableName);
     return List.generate(maps.length, (index) {
-      return Appointment.fromMap(maps[index]);
+      return AppointmentModel.fromMap(maps[index]);
     });
   }
 
   Future<bool> updateAppointment(String doctorName, String updateDoctorName,
-      Appointment newAppointment) async {
+      AppointmentModel newAppointment) async {
     try {
       await initializeDatabase();
       final result = await _database.update(

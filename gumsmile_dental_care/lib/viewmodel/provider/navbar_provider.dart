@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gumsmile_dental_care/view/screen/home_screen.dart';
 import 'package:gumsmile_dental_care/view/screen/message_screen.dart';
-import 'package:gumsmile_dental_care/view/screen/profilescreen.dart';
+import 'package:gumsmile_dental_care/view/screen/profile_screen.dart';
 
 class NavbarProvider extends ChangeNotifier {
   int _selectedIndex = 1;

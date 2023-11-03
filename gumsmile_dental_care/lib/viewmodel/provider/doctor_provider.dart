@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gumsmile_dental_care/model/doctor_model.dart';
-import 'package:gumsmile_dental_care/service/database_doctor.dart';
+import 'package:gumsmile_dental_care/service/doctor_service.dart';
 
 class DoctorProvider extends ChangeNotifier {
   List<DoctorModel> doctors = [];
@@ -10,7 +10,7 @@ class DoctorProvider extends ChangeNotifier {
   List<DoctorModel> filteredDoctors = [];
   String searchQuery = '';
 
-  final DatabaseDoctor _databaseDoctor = DatabaseDoctor();
+  final DoctorService _doctorService = DoctorService();
 
   Future addDoctor(DoctorModel doctorModel) async {
     doctors.add(doctorModel);
@@ -67,7 +67,7 @@ class DoctorProvider extends ChangeNotifier {
   }
 
   Future fetchDoctorFromLocal() async {
-    doctors = await _databaseDoctor.getDoctors();
+    doctors = await _doctorService.getDoctors();
     notifyListeners();
   }
 
@@ -138,30 +138,4 @@ class DoctorProvider extends ChangeNotifier {
             element.name.toLowerCase().contains(query.toLowerCase()))
         .toList();
   }
-
-  // Future<void> _selectTime(
-  //     BuildContext context, TimeOfDay startTime, TimeOfDay endTime) async {
-  //   final TimeOfDay? selectedTime = await showTimePicker(
-  //     context: context,
-  //     initialTime: TimeOfDay.now(),
-  //     builder: (BuildContext context, Widget? child) {
-  //       return MediaQuery(
-  //         data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
-  //         child: child!,
-  //       );
-  //     },
-  //   );
-  //   if (selectedTime != null) {
-  //     if (selectedTime.isAfter(startTime) && selectedTime.isBefore(endTime)) {
-  //       // Waktu yang dipilih valid dalam rentang jam kerja dokter.
-  //       print('Waktu yang dipilih: $selectedTime');
-  //       // Lakukan sesuatu dengan waktu yang dipilih, seperti membuat janji temu.
-  //     } else {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(
-  //           content: Text('Waktu yang dipilih bukan dalam jam kerja dokter.'),
-  //         ),
-  //       );
-  //     }
-  //   }
 }

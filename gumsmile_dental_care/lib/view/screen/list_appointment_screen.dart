@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gumsmile_dental_care/const/constant.dart';
-import 'package:gumsmile_dental_care/view/screen/futureappointmentscreen.dart';
-import 'package:gumsmile_dental_care/view/screen/pastappointmentsscreen.dart';
+import 'package:gumsmile_dental_care/view/screen/future_appointment_screen.dart';
+import 'package:gumsmile_dental_care/view/screen/past_appointment_screen.dart';
 
 class ListAppointmentScreen extends StatefulWidget {
   const ListAppointmentScreen({super.key});

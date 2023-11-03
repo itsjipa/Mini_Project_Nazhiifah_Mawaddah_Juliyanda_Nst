@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gumsmile_dental_care/model/appointment_model.dart';
 
 class PastProvider extends ChangeNotifier {
-  final Appointment data = Appointment(
+  final AppointmentModel data = AppointmentModel(
       doctorName: "Drg. Lucas Leonidas",
       picture: "assets/dokter/doctorimg8.jpeg",
       treatmentType: "Orthodentist",

@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:gumsmile_dental_care/model/appointment_model.dart';
-import 'package:gumsmile_dental_care/service/database_apointment.dart';
+import 'package:gumsmile_dental_care/service/appointment_service.dart';
 
 class ListAppointmentsProvider extends ChangeNotifier {
-  List<Appointment> _appointment = [];
+  List<AppointmentModel> _appointment = [];
   DateTime selectedTime = DateTime.now();
   DateTime selectedDate = DateTime.now();
-  DatabaseAppointment databaseAppointment = DatabaseAppointment();
+  AppointmentService appointmentService = AppointmentService();
 
-  List<Appointment> get appointment => _appointment;
+  List<AppointmentModel> get appointment => _appointment;
 
-  void addAppointment(Appointment appointment) {
+  void addAppointment(AppointmentModel appointment) {
     _appointment.add(appointment);
     notifyListeners();
   }
 
-  void removeAppointment(Appointment appointment) {
+  void removeAppointment(AppointmentModel appointment) {
     _appointment.remove(appointment);
   }
 
   Future<void> fetchDataAppointments() async {
     try {
-      final appointments = await databaseAppointment.getAppointment();
+      final appointments = await appointmentService.getAppointment();
       _appointment = appointments;
       notifyListeners();
     } catch (e) {
